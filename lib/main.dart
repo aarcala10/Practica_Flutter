@@ -13,6 +13,10 @@ class TreeBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData.light().copyWith(
+        primaryColor: Color(0xFF388E3C),
+        accentColor: Color(0xFFFFC107),
+      ),
       title: TextResources.appName,
       home: Scaffold(
         appBar: AppBar(
@@ -20,6 +24,7 @@ class TreeBuilder extends StatelessWidget {
         ),
         body: NotesListView(model),
         floatingActionButton: FloatingActionButton(
+          backgroundColor: Color(0xFFFFC107),
           onPressed: () {
             model.add(Note("Una nueva nota"));
           },

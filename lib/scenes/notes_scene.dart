@@ -39,7 +39,7 @@ class _NotesListViewState extends State<NotesListView> {
   }
 }
 
-class NoteSilver extends StatelessWidget {
+class NoteSilver extends StatefulWidget {
   final Notebook notebook;
   final int index;
 
@@ -48,15 +48,36 @@ class NoteSilver extends StatelessWidget {
         this.index = index;
 
   @override
+  _NoteSilverState createState() => _NoteSilverState();
+}
+
+class _NoteSilverState extends State<NoteSilver> {
+  @override
   Widget build(BuildContext context) {
     DateFormat fmt = DateFormat("yyyy-MM-dd");
 
-    return Card(
-      color: Colors.grey[200],
-      child: ListTile(
-        leading: const Icon(Icons.toc),
-        title: Text(notebook[index].body),
-        subtitle: Text(fmt.format(notebook[index].modificationDate)),
+    return Dismissible(
+      key: UniqueKey(),
+      onDismissed: (direction) {
+        widget.notebook.removeAt(widget.index);
+        setState(() {});
+        Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text("Element ${widget.index} has been deleted"),
+          backgroundColor: Colors.grey[700],
+          duration: const Duration(seconds: 2),
+        ));
+      },
+      background: Container(
+        color: Colors.red,
+      ),
+      child: Card(
+        color: Colors.grey[200],
+        child: ListTile(
+          leading: const Icon(Icons.toc),
+          title: Text(widget.notebook[widget.index].body),
+          subtitle:
+              Text(fmt.format(widget.notebook[widget.index].modificationDate)),
+        ),
       ),
     );
   }
