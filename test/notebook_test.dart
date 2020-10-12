@@ -9,6 +9,17 @@ void main() {
     });
   });
 
+  group("removal", () {
+    test("remove by index", () {
+      final Note n = Note("hola");
+      Notebook.shared.add(n);
+      expect(() => Notebook.shared.removeAt(0), returnsNormally);
+
+      Notebook.shared.add(n);
+      expect(Notebook.shared.removeAt(0), n)
+    });
+  });
+
   group("contents", () {
     test("length behaves correctly", () {
       final nb = Notebook();
