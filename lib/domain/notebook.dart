@@ -1,7 +1,7 @@
 import 'package:everpobre/domain/note.dart';
 import 'package:flutter/material.dart';
 
-class Notebook in ChangeNotifier{
+class Notebook with ChangeNotifier {
   static final shared = Notebook();
 
   final List<Note> _notes = [];
@@ -18,15 +18,20 @@ class Notebook in ChangeNotifier{
   }
 
   bool remove(Note note) {
-    return _notes.remove(note);
+    final n = _notes.remove(note);
+    notifyListeners();
+    return n;
   }
 
   Note removeAt(int index) {
-    return _notes.removeAt(index);
+    final n = _notes.removeAt(index);
+    notifyListeners();
+    return n;
   }
 
   void add(Note note) {
     _notes.insert(0, note);
+    notifyListeners();
   }
 
   @override
