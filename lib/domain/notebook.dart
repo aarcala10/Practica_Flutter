@@ -1,6 +1,7 @@
 import 'package:everpobre/domain/note.dart';
+import 'package:flutter/material.dart';
 
-class Notebook {
+class Notebook in ChangeNotifier{
   static final shared = Notebook();
 
   final List<Note> _notes = [];
