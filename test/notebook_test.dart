@@ -16,7 +16,7 @@ void main() {
       expect(() => Notebook.shared.removeAt(0), returnsNormally);
 
       Notebook.shared.add(n);
-      expect(Notebook.shared.removeAt(0), n)
+      expect(Notebook.shared.removeAt(0), n);
     });
   });
 
