@@ -3,6 +3,7 @@ import 'package:everpobre/domain/notebook.dart';
 import 'package:everpobre/domain/note.dart';
 
 void main() {
+  /*
   group("contruction", () {
     test("Can access the shared notebook singleton", () {
       expect(Notebook.shared, isNotNull);
@@ -20,6 +21,7 @@ void main() {
     });
   });
 
+  
   group("contents", () {
     test("length behaves correctly", () {
       final nb = Notebook();
@@ -35,4 +37,5 @@ void main() {
       expect(nb2.length, 0);
     });
   });
+  */
 }

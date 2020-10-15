@@ -1,18 +1,18 @@
-import 'package:everpobre/domain/notebook.dart';
+import 'package:everpobre/domain/notebooks.dart';
 import 'package:everpobre/main.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class NotesListView extends StatefulWidget {
-  final Notebook _model;
+class NotebooksListView extends StatefulWidget {
+  final Notebooks _model;
 
-  const NotesListView(Notebook model) : _model = model;
+  const NotebooksListView(Notebooks model) : _model = model;
 
   @override
-  _NotesListViewState createState() => _NotesListViewState();
+  _NotebooksListViewState createState() => _NotebooksListViewState();
 }
 
-class _NotesListViewState extends State<NotesListView> {
+class _NotebooksListViewState extends State<NotebooksListView> {
   void modelDidChange() {
     setState(() {});
   }
@@ -34,25 +34,25 @@ class _NotesListViewState extends State<NotesListView> {
     return ListView.builder(
       itemCount: widget._model.length,
       itemBuilder: (context, index) {
-        return NoteSilver(widget._model, index);
+        return NotebookSilver(widget._model, index);
       },
     );
   }
 }
 
-class NoteSilver extends StatefulWidget {
-  final Notebook notebook;
+class NotebookSilver extends StatefulWidget {
+  final Notebooks notebooks;
   final int index;
 
-  const NoteSilver(Notebook notebook, int index)
-      : this.notebook = notebook,
+  const NotebookSilver(Notebooks notebooks, int index)
+      : this.notebooks = notebooks,
         this.index = index;
 
   @override
-  _NoteSilverState createState() => _NoteSilverState();
+  _NotebookSilverState createState() => _NotebookSilverState();
 }
 
-class _NoteSilverState extends State<NoteSilver> {
+class _NotebookSilverState extends State<NotebookSilver> {
   @override
   Widget build(BuildContext context) {
     DateFormat fmt = DateFormat("yyyy-MM-dd");
@@ -60,7 +60,7 @@ class _NoteSilverState extends State<NoteSilver> {
     return Dismissible(
       key: UniqueKey(),
       onDismissed: (direction) {
-        widget.notebook.removeAt(widget.index);
+        widget.notebooks.removeAt(widget.index);
         setState(() {});
         Scaffold.of(context).showSnackBar(SnackBar(
           content: Text("Element ${widget.index} has been deleted"),
@@ -74,10 +74,13 @@ class _NoteSilverState extends State<NoteSilver> {
       child: Card(
         color: Colors.grey[200],
         child: ListTile(
-          leading: const Icon(Icons.sticky_note_2),
-          title: Text(widget.notebook[widget.index].body),
-          subtitle:
-              Text(fmt.format(widget.notebook[widget.index].modificationDate)),
+          onTap: () {
+            Navigator.pushNamed(context, NotesWidget.routeName,
+                arguments: Message(widget.notebooks[widget.index].title));
+            print(widget.notebooks[widget.index].title);
+          },
+          leading: const Icon(Icons.library_books),
+          title: Text(widget.notebooks[widget.index].title),
         ),
       ),
     );
